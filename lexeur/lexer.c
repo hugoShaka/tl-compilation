@@ -402,14 +402,13 @@ void get_symbol() {
     // Here comes the code of the lexer automata
     if (is_character_letter_or_digit_or_underscore()){
         identifier = smalloc(SIZEOFUINT64*MAX_IDENTIFIER_LENGTH);
-        identifier = store_character(identifier, 0, character);
-        get_character();
-        while(is_character_whitespace() == 0){
-            identifier = store_character(identifier, 0, character);
+        // identifier = store_character(identifier, string_length(identifier), character);
+        // get_character();
+        while(is_character_letter_or_digit_or_underscore() == 1){
+            identifier = store_character(identifier, string_length(identifier), character);
             get_character();
         }
-        string_reverse(identifier);
-        identifier_or_keyword();
+        symbol = identifier_or_keyword();
     }
     else if (character == CHAR_PLUS){
       symbol = SYM_PLUS;
@@ -459,7 +458,7 @@ void get_symbol() {
       symbol = SYM_LT;
       get_character();
       if (character == CHAR_EQUAL){
-        symbol = SYM_LEQ
+        symbol = SYM_LEQ;
         get_character();
       }
     }
@@ -467,14 +466,14 @@ void get_symbol() {
       symbol = SYM_GT;
       get_character();
       if (character == CHAR_EQUAL){
-        symbol = SYM_GEQ
+        symbol = SYM_GEQ;
         get_character();
       }
     }
     else if (character == CHAR_EXCLAMATION){
       get_character();
       if (character == CHAR_EQUAL){
-        symbol = SYM_NOTEQ
+        symbol = SYM_NOTEQ;
         get_character();
       }
       else {
@@ -491,7 +490,6 @@ void get_symbol() {
     number_of_scanned_symbols = number_of_scanned_symbols + 1;
   }
   else {
-    syntax_error_character(character)
+    syntax_error_character(character);
   }
 }
-
