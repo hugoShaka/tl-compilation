@@ -400,6 +400,13 @@ void get_symbol() {
 
   if (find_next_character() != CHAR_EOF) {
     // Here comes the code of the lexer automata
+    if (character == CHAR_PLUS){
+      symbol = SYM_PLUS;
+    }
+    else if (character == CHAR_SEMICOLON){
+      symbol = SYM_SEMICOLON;
+    }
+
     number_of_scanned_symbols = number_of_scanned_symbols + 1;
   }
 }
