@@ -402,35 +402,85 @@ void get_symbol() {
     // Here comes the code of the lexer automata
     if (character == CHAR_PLUS){
       symbol = SYM_PLUS;
+      get_character();
     }
     else if (character == CHAR_SEMICOLON){
       symbol = SYM_SEMICOLON;
+      get_character();
     }
     else if (character == CHAR_DASH){
       symbol = SYM_MINUS;
+      get_character();
     }
     else if (character == CHAR_ASTERISK){
       symbol = SYM_ASTERISK;
+      get_character();
+    }
+    else if (character == CHAR_EQUAL){
+      symbol = SYM_ASSIGN;
+      get_character();
+      if (character == CHAR_EQUAL){
+        symbol = SYM_EQUALITY
+        get_character();
+      }
     }
     else if (character == CHAR_LPARENTHESIS){
       symbol = SYM_LPARENTHESIS;
+      get_character();
     }
     else if (character == CHAR_RPARENTHESIS){
       symbol = SYM_RPARENTHESIS;
+      get_character();
     }
     else if (character == CHAR_LBRACE){
       symbol = SYM_LBRACE;
+      get_character();
     }
     else if (character == CHAR_RBRACE){
       symbol = SYM_RBRACE;
+      get_character();
     }
     else if (character == CHAR_COMMA){
       symbol = SYM_COMMA;
+      get_character();
     }
+    else if (character == CHAR_LT){
+      symbol = SYM_LT;
+      get_character();
+      if (character == CHAR_EQUAL){
+        symbol = SYM_LEQ
+        get_character();
+      }
+    }
+    else if (character == CHAR_GT){
+      symbol = SYM_GT;
+      get_character();
+      if (character == CHAR_EQUAL){
+        symbol = SYM_GEQ
+        get_character();
+      }
+    }
+    else if (character == CHAR_EXCLAMATION){
+      get_character();
+      if (character == CHAR_EQUAL){
+        symbol = SYM_NOTEQ
+        get_character();
+      }
+      else {
+        syntax_error_character(character);
+      }
+
+    }
+
     else if (character == CHAR_PERCENTAGE){
       symbol = SYM_MOD;
+      get_character();
     }
 
     number_of_scanned_symbols = number_of_scanned_symbols + 1;
   }
+  else {
+    syntax_error_character(character)
+  }
 }
+
