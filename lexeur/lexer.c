@@ -400,7 +400,18 @@ void get_symbol() {
 
   if (find_next_character() != CHAR_EOF) {
     // Here comes the code of the lexer automata
-    if (character == CHAR_PLUS){
+    if (is_character_letter_or_digit_or_underscore()){
+        identifier = smalloc(SIZEOFUINT64*MAX_IDENTIFIER_LENGTH);
+        identifier = store_character(identifier, 0, character);
+        get_character();
+        while(is_character_whitespace() == 0){
+            identifier = store_character(identifier, 0, character);
+            get_character();
+        }
+        string_reverse(identifier);
+        identifier_or_keyword();
+    }
+    else if (character == CHAR_PLUS){
       symbol = SYM_PLUS;
       get_character();
     }
