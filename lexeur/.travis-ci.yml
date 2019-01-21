@@ -1,0 +1,14 @@
+---
+language: c
+
+stages:
+  - build_tp1
+
+jobs:
+  include:
+    - stage: build_tp1
+      script:
+        - cd lexer
+        - make test.cstar
+        - ./mipster.x86 -l test.cstar -m 400 -c arguments.c
+...
