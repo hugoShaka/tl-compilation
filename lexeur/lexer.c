@@ -120,7 +120,7 @@ void print_symbol(uint64_t symbol) {
     printf1((uint64_t*) "Integer: %d\n", (uint64_t*)literal);
   else if (symbol == SYM_INCLUDE )
     printf1((uint64_t*) "#%s\n", (uint64_t*) *(SYMBOLS + symbol));
-  else 
+  else
     printf1((uint64_t*) "%s\n", (uint64_t*) *(SYMBOLS + symbol));
 }
 
@@ -407,13 +407,28 @@ void get_symbol() {
       symbol = SYM_SEMICOLON;
     }
     else if (character == CHAR_DASH){
-      symbol = SYM_DASH;
+      symbol = SYM_MINUS;
     }
-    else if (character == CHAR_STAR){
-      symbol = SYM_STAR;
+    else if (character == CHAR_ASTERISK){
+      symbol = SYM_ASTERISK;
     }
     else if (character == CHAR_LPARENTHESIS){
-      symbol = SYM_PARENTHESIS;
+      symbol = SYM_LPARENTHESIS;
+    }
+    else if (character == CHAR_RPARENTHESIS){
+      symbol = SYM_RPARENTHESIS;
+    }
+    else if (character == CHAR_LBRACE){
+      symbol = SYM_LBRACE;
+    }
+    else if (character == CHAR_RBRACE){
+      symbol = SYM_RBRACE;
+    }
+    else if (character == CHAR_COMMA){
+      symbol = SYM_COMMA;
+    }
+    else if (character == CHAR_PERCENTAGE){
+      symbol = SYM_MOD;
     }
 
     number_of_scanned_symbols = number_of_scanned_symbols + 1;
