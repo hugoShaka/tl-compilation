@@ -400,7 +400,7 @@ void get_symbol() {
 
   if (find_next_character() != CHAR_EOF) {
     // Here comes the code of the lexer automata
-    if (is_character_letter_or_digit_or_underscore()){
+    if (is_character_letter()){
         identifier = smalloc(SIZEOFUINT64*MAX_IDENTIFIER_LENGTH);
         // identifier = store_character(identifier, string_length(identifier), character);
         // get_character();
@@ -409,6 +409,18 @@ void get_symbol() {
             get_character();
         }
         symbol = identifier_or_keyword();
+    }
+    else if (is_character_digit() == 1){
+        print("plop");
+        integer = smalloc(SIZEOFUINT64*MAX_INTEGER_LENGTH);
+        // identifier = store_character(identifier, string_length(identifier), character);
+        // get_character();
+        while(is_character_digit() == 1){
+            integer = store_character(integer, string_length(integer), character);
+            get_character();
+        }
+        literal = atoi(integer);
+        symbol = SYM_INTEGER;
     }
     else if (character == CHAR_PLUS){
       symbol = SYM_PLUS;
