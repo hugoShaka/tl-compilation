@@ -411,8 +411,7 @@ void get_symbol() {
         symbol = identifier_or_keyword();
     }
     else if (is_character_digit() == 1){
-        print("plop");
-        integer = smalloc(SIZEOFUINT64*MAX_INTEGER_LENGTH);
+        integer = zalloc(MAX_INTEGER_LENGTH);
         // identifier = store_character(identifier, string_length(identifier), character);
         // get_character();
         while(is_character_digit() == 1){
@@ -421,6 +420,18 @@ void get_symbol() {
         }
         literal = atoi(integer);
         symbol = SYM_INTEGER;
+    }
+    else if (character == CHAR_SINGLEQUOTE){
+      get_character();
+      literal = character;
+      get_character();
+      if (character == CHAR_SINGLEQUOTE){
+        symbol = SYM_CHARACTER;
+      }
+      else {
+        syntax_error_character(character);
+      }
+      get_character();
     }
     else if (character == CHAR_PLUS){
       symbol = SYM_PLUS;
@@ -442,7 +453,7 @@ void get_symbol() {
       symbol = SYM_ASSIGN;
       get_character();
       if (character == CHAR_EQUAL){
-        symbol = SYM_EQUALITY
+        symbol = SYM_EQUALITY;
         get_character();
       }
     }
