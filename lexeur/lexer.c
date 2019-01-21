@@ -406,6 +406,15 @@ void get_symbol() {
     else if (character == CHAR_SEMICOLON){
       symbol = SYM_SEMICOLON;
     }
+    else if (character == CHAR_DASH){
+      symbol = SYM_DASH;
+    }
+    else if (character == CHAR_STAR){
+      symbol = SYM_STAR;
+    }
+    else if (character == CHAR_LPARENTHESIS){
+      symbol = SYM_PARENTHESIS;
+    }
 
     number_of_scanned_symbols = number_of_scanned_symbols + 1;
   }
