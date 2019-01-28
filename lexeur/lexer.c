@@ -26,7 +26,7 @@ uint64_t CHAR_GT           = '>';
 uint64_t CHAR_EXCLAMATION  = '!';
 uint64_t CHAR_PERCENTAGE   = '%';
 uint64_t CHAR_BACKSLASH    =  92; // ASCII code 92 = backslash
-uint64_t CHAR_HASH = '#';
+uint64_t CHAR_HASH         = '#';
 
 
 // ------------------------ GLOBAL VARIABLES -----------------------
@@ -400,7 +400,16 @@ void get_symbol() {
 
   if (find_next_character() != CHAR_EOF) {
     // Here comes the code of the lexer automata
-    if (is_character_letter()){
+    if (character == CHAR_HASH){
+        get_character();
+        identifier = smalloc(SIZEOFUINT64*MAX_IDENTIFIER_LENGTH);
+        while(is_character_letter() == 1){
+            identifier = store_character(identifier, string_length(identifier), character);
+            get_character();
+        }
+        symbol = preprocessor_directive();
+    }
+    else if (is_character_letter()){
         identifier = smalloc(SIZEOFUINT64*MAX_IDENTIFIER_LENGTH);
         // identifier = store_character(identifier, string_length(identifier), character);
         // get_character();
@@ -412,7 +421,7 @@ void get_symbol() {
     }
     else if (is_character_digit() == 1){
         print("plop");
-        integer = smalloc(SIZEOFUINT64*MAX_INTEGER_LENGTH);
+        integer = zalloc(MAX_INTEGER_LENGTH);
         // identifier = store_character(identifier, string_length(identifier), character);
         // get_character();
         while(is_character_digit() == 1){
