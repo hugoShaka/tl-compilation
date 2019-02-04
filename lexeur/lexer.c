@@ -55,6 +55,8 @@ uint64_t number_of_ignored_characters = 0;
 uint64_t number_of_comments           = 0;
 uint64_t number_of_scanned_symbols    = 0;
 
+uint64_t end_of_string                = 0;
+
 
 void get_character();
 
@@ -440,6 +442,45 @@ void get_symbol() {
       else {
         syntax_error_character(character);
       }
+      get_character();
+    }
+    else if (character == CHAR_DOUBLEQUOTE){
+      get_character();
+      string = smalloc(SIZEOFUINT64*MAX_IDENTIFIER_LENGTH);
+      end_of_string = 0;
+      if (character == CHAR_BACKSLASH){
+        // q26
+        handle_escape_sequence();
+        string = store_character(string, string_length(string), character);
+      }
+      else if (is_character_new_line() == 1){
+        syntax_error_character(character);
+      }
+      else if (character == CHAR_DOUBLEQUOTE){
+        // q35
+        string = SYM_STRING;
+      }
+      while (end_of_string == 0){
+        if (is_character_not_double_quote_or_new_line_or_eof() == 1) {
+            string = store_character(string, string_length(string), character);
+        }
+        else if (character == CHAR_BACKSLASH){
+            // q26
+            handle_escape_sequence();
+            print_character(character);
+            string = store_character(string, string_length(string), character);
+        }
+        else if (character == CHAR_DOUBLEQUOTE){
+            //q35
+            end_of_string = 1;
+        }
+        else{
+            syntax_error_character(character);
+        }
+        get_character();
+
+      }
+      symbol = SYM_STRING;
       get_character();
     }
     else if (character == CHAR_PLUS){
