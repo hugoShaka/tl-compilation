@@ -1,0 +1,5 @@
+<.>: include
+<Solution>: not_hygienic
+<expr>: not_hygienic
+true: package(str)
+true: use_menhir
