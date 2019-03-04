@@ -132,9 +132,9 @@ uint64_t* make_terms(uint64_t* term, uint64_t* other){
         else if (operation == SYM_MINUS){
             return triple(ESUB, term, make_terms(value, next_elt(other)));
         }
-        else{
-            return 1;
-        }
+        // else{
+        //     return 1;
+        // }
     }
 }
 
@@ -149,8 +149,8 @@ uint64_t* make_factors(uint64_t* factor, uint64_t* other){
         if (operation == SYM_ASTERISK){
             return triple(EMUL, factor, make_terms(value, next_elt(other)));
         }
-        else{
-            return 1;
-        }
+        // else{
+        //     return 1;
+        // }
     }
 }

@@ -51,7 +51,7 @@ cstar: ${OBJS} main-cstar.o
 test: $(TESTS) cstar
 	@for i in $(TESTS); do \
 		echo "$$i..."; \
-		./cstar -c $$i; \
+		./cstar -c $$i -dump-ast; \
 	done
 
 

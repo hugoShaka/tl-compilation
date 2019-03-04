@@ -167,25 +167,26 @@ uint64_t* nil() {
 /* Parcours de liste : [get_elt(l)] renvoie l'élément en tête de liste et
    [next_elt(l)] renvoie un pointeur vers le reste de la liste. */
 
-void check_is_list(uint64_t* l){
+void check_is_list(uint64_t* l, uint64_t i){
   if(node_type(l) != TYPE_LIST){
-    print((uint64_t*)"check_is_list: error: not a list");
+    print((uint64_t*)"check_is_list: error: not a list\n");
+    printf1("%d\n", i);
     exit(-1);
   }
 }
 
 uint64_t* get_elt(uint64_t* l) {
-  check_is_list(l);
+  check_is_list(l ,1);
   return fst(array_get(l,1));
 }
 
 uint64_t* next_elt(uint64_t* l) {
-  check_is_list(l);
+  check_is_list(l, 2);
   return snd(array_get(l,1));
 }
 
 uint64_t is_empty(uint64_t* l){
-  check_is_list(l);
+  check_is_list(l, 3);
   return array_get(l,1) == NULL;
 }
 
@@ -253,11 +254,43 @@ uint64_t* list_nth(uint64_t* l, uint64_t n){
   return NULL;
 }
 
-
 uint64_t* make_terms(uint64_t* term, uint64_t* other){
-  return NULL;
+    printf("debug\n");
+    if (is_empty(other)){
+        return term;
+    }
+    else {
+        uint64_t* terme_2 = get_elt(other);
+        uint64_t* operation = fst(terme_2);
+        uint64_t* value = snd(terme_2);
+        if (operation == SYM_PLUS){
+            return triple(EADD, term, make_terms(value, next_elt(other)));
+        }
+        else if (operation == SYM_MINUS){
+            return triple(ESUB, term, make_terms(value, next_elt(other)));
+        }
+        // else{
+        //     return 1;
+        // }
+    }
 }
 
 uint64_t* make_factors(uint64_t* factor, uint64_t* other){
-  return NULL;
+    print((uint64_t*) "debug 2\n");
+    if (is_empty(other)){
+        return factor;
+    }
+    else {
+        uint64_t* terme_2 = get_elt(other);
+        uint64_t* operation = fst(terme_2);
+        uint64_t* value = snd(terme_2);
+        if (operation == SYM_ASTERISK){
+            return triple(EMUL, factor, make_factors(value, next_elt(other)));
+        }
+        // else{
+        //     return 1;
+        // }
+    }
+
+    print((uint64_t*) "end of make_factors\n");
 }
