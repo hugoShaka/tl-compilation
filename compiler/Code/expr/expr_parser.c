@@ -153,7 +153,7 @@ uint64_t* parse_TERMS(){
     *(p + 1) = (uint64_t) parse_TERM();
     *(p + 2) = (uint64_t) parse_TERMS();
 
-    return cons(pair(SYM_PLUS,(array_get(p,2 - 1))),(array_get(p,3 - 1)));
+    return cons(pair(make_int(SYM_PLUS),(array_get(p,2 - 1))),(array_get(p,3 - 1)));
   }
   if(symbol ==  SYM_MINUS){
     p = smalloc(3 * SIZEOFUINT64STAR);
@@ -161,7 +161,7 @@ uint64_t* parse_TERMS(){
     *(p + 1) = (uint64_t) parse_TERM();
     *(p + 2) = (uint64_t) parse_TERMS();
 
-    return cons(pair(SYM_MINUS,(array_get(p,2 - 1))),(array_get(p,3 - 1)));
+    return cons(pair(make_int(SYM_MINUS),(array_get(p,2 - 1))),(array_get(p,3 - 1)));
   }
   if(symbol ==  SYM_RPARENTHESIS){
     p = smalloc(0 * SIZEOFUINT64STAR);
@@ -191,7 +191,7 @@ uint64_t* parse_FACTOR(){
     p = smalloc(1 * SIZEOFUINT64STAR);
     *(p + 0) = (uint64_t) eat(SYM_IDENTIFIER);
 
-    return pair(EVAR,(array_get(p,1 - 1)));
+    return pair(make_int(EVAR),make_string((array_get(p,1 - 1))));
   }
   if(symbol ==  SYM_INTEGER){
     p = smalloc(1 * SIZEOFUINT64STAR);
@@ -240,7 +240,7 @@ uint64_t* parse_FACTORS(){
     *(p + 1) = (uint64_t) parse_FACTOR();
     *(p + 2) = (uint64_t) parse_FACTORS();
 
-    return cons(pair(EMUL,(array_get(p,2 - 1))),(array_get(p,3 - 1)));
+    return cons(pair(make_int(EMUL),(array_get(p,2 - 1))),(array_get(p,3 - 1)));
   }
   if(symbol ==  SYM_RPARENTHESIS){
     p = smalloc(0 * SIZEOFUINT64STAR);

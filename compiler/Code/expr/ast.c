@@ -170,7 +170,7 @@ uint64_t* nil() {
 void check_is_list(uint64_t* l, uint64_t i){
   if(node_type(l) != TYPE_LIST){
     print((uint64_t*)"check_is_list: error: not a list\n");
-    printf1("%d\n", i);
+    printf1((uint64_t*) "%d\n", (uint64_t*) i);
     exit(-1);
   }
 }
@@ -255,26 +255,26 @@ uint64_t* list_nth(uint64_t* l, uint64_t n){
 }
 
 uint64_t* make_terms(uint64_t* term, uint64_t* other){
-    printf("start make_terms\n");
+    print((uint64_t*) "start make_terms\n");
     if (is_empty(other)){
-        printf("out of make_terms\n");
+        print((uint64_t*) "out of make_terms\n");
         return term;
     }
     else {
         uint64_t* terme_2 = get_elt(other);
-        uint64_t* operation = fst(terme_2);
+        uint64_t operation = int_get(fst(terme_2));
         uint64_t* value = snd(terme_2);
         if (operation == SYM_PLUS){
-            printf("out of make_terms\n");
-            return triple(EADD, term, make_terms(value, next_elt(other)));
+            print((uint64_t*) "out of make_terms\n");
+            return triple(make_int(EADD), term, make_terms(value, next_elt(other)));
         }
         else if (operation == SYM_MINUS){
-            printf("out of make_terms\n");
-            return triple(ESUB, term, make_terms(value, next_elt(other)));
+            print((uint64_t*) "out of make_terms\n");
+            return triple(make_int(ESUB), term, make_terms(value, next_elt(other)));
         }
-        // else{
-        //     return 1;
-        // }
+        else{
+            return NULL;
+        }
     }
 }
 
@@ -285,14 +285,17 @@ uint64_t* make_factors(uint64_t* factor, uint64_t* other){
     }
     else {
         uint64_t* terme_2 = get_elt(other);
-        uint64_t* operation = fst(terme_2);
+        uint64_t operation = int_get(fst(terme_2));
         uint64_t* value = snd(terme_2);
-        if (operation == SYM_ASTERISK){
-            return triple(EMUL, factor, make_factors(value, next_elt(other)));
+        // print((uint64_t*) "end of make_factors\n");
+        if (operation == EMUL){
+            print((uint64_t*) "SYM_ASTERISK\n");
+            return triple(make_int(EMUL), factor, make_factors(value, next_elt(other)));
         }
-        // else{
-        //     return 1;
-        // }
+        else{
+            print((uint64_t*) "IMPOSSIBLE\n");
+            return NULL;
+        }
     }
 
     print((uint64_t*) "end of make_factors\n");
