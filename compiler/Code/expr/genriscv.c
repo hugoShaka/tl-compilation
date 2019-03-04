@@ -25,7 +25,7 @@ uint64_t find_var(uint64_t* s){
         }
         liste_pos = next_elt(liste_pos);
     }
-    symtab = cons(paire(s, max_stack+8), symtab);
+    symtab = cons(pair(s, max_stack+8), symtab);
     return max_stack+8;
 }
 
