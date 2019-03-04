@@ -12,7 +12,7 @@ void dump_ast(uint64_t* ast) {
   uint64_t* elt;
   while (!is_empty(affectations)){
       elt = get_elt(affectations);
-      print(fst(elt));
+      print(string_get(fst(elt)));
       print((uint64_t*) " = ");
       print_expr(snd(elt));
       affectations = next_elt(affectations);
@@ -21,7 +21,7 @@ void dump_ast(uint64_t* ast) {
 }
 
 void print_expr(uint64_t* expr){
-  uint64_t* type = fst(expr);
+  uint64_t type = int_get(fst(expr));
   if (type == EADD){
       print_expr(snd(expr));
       print((uint64_t*) "+");
@@ -38,9 +38,9 @@ void print_expr(uint64_t* expr){
       print_expr(thr(expr));
   }
   if (type == EINT){
-      print(snd(expr));
+      printf("%d\n",int_get(snd(expr)));
   }
   if (type == EVAR){
-      print(snd(expr));
+      printf("%s\n",string_get(snd(expr)));
   }
 }

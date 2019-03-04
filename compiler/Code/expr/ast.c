@@ -255,8 +255,9 @@ uint64_t* list_nth(uint64_t* l, uint64_t n){
 }
 
 uint64_t* make_terms(uint64_t* term, uint64_t* other){
-    printf("debug\n");
+    printf("start make_terms\n");
     if (is_empty(other)){
+        printf("out of make_terms\n");
         return term;
     }
     else {
@@ -264,9 +265,11 @@ uint64_t* make_terms(uint64_t* term, uint64_t* other){
         uint64_t* operation = fst(terme_2);
         uint64_t* value = snd(terme_2);
         if (operation == SYM_PLUS){
+            printf("out of make_terms\n");
             return triple(EADD, term, make_terms(value, next_elt(other)));
         }
         else if (operation == SYM_MINUS){
+            printf("out of make_terms\n");
             return triple(ESUB, term, make_terms(value, next_elt(other)));
         }
         // else{

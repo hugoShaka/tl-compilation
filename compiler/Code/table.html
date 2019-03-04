@@ -3,7 +3,7 @@
 <h1>Grammaire</h1>
 <table> <tr id='rule-1' style='border-top: solid 1px;'><td class='left'>(1)</td> <td class='left'> <span id='nt-S'>S</span> </td class='left'> <td class='left'> -> </td> <td class='left'>  <a href='#nt-ASSIGNS' style='color: black;'>ASSIGNS</a> SYM_RETURN <a href='#nt-EXPR' style='color: black;'>EXPR</a> SYM_EOF</td><td class='left'><pre> return pair($1, $3); </pre></td></tr>
 
- <tr id='rule-2' style='border-top: solid 1px;'><td class='left'>(2)</td> <td class='left'> <span id='nt-ASSIGNS'>ASSIGNS</span> </td class='left'> <td class='left'> -> </td> <td class='left'>  <a href='#nt-ASSIGN' style='color: black;'>ASSIGN</a> <a href='#nt-ASSIGNS' style='color: black;'>ASSIGNS</a></td><td class='left'><pre>return pair($1,$2);</pre></td></tr>
+ <tr id='rule-2' style='border-top: solid 1px;'><td class='left'>(2)</td> <td class='left'> <span id='nt-ASSIGNS'>ASSIGNS</span> </td class='left'> <td class='left'> -> </td> <td class='left'>  <a href='#nt-ASSIGN' style='color: black;'>ASSIGN</a> <a href='#nt-ASSIGNS' style='color: black;'>ASSIGNS</a></td><td class='left'><pre>return cons($1,$2);</pre></td></tr>
  <tr id='rule-3' style='border: none;'><td class='left'>(3)</td> <td class='left'>  </td class='left'> <td class='left'> -> </td> <td class='left'> &epsilon;</td><td class='left'><pre>return nil();</pre></td></tr>
 
  <tr id='rule-4' style='border-top: solid 1px;'><td class='left'>(4)</td> <td class='left'> <span id='nt-ASSIGN'>ASSIGN</span> </td class='left'> <td class='left'> -> </td> <td class='left'>  SYM_IDENTIFIER SYM_ASSIGN <a href='#nt-EXPR' style='color: black;'>EXPR</a> SYM_SEMICOLON</td><td class='left'><pre>return pair(make_string($1),$3);</pre></td></tr>

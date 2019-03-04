@@ -39,7 +39,7 @@ uint64_t* parse_ASSIGNS(){
     *(p + 0) = (uint64_t) parse_ASSIGN();
     *(p + 1) = (uint64_t) parse_ASSIGNS();
 
-    return pair((array_get(p,1 - 1)),(array_get(p,2 - 1)));
+    return cons((array_get(p,1 - 1)),(array_get(p,2 - 1)));
   }
   if(symbol ==  SYM_RETURN){
     p = smalloc(0 * SIZEOFUINT64STAR);
