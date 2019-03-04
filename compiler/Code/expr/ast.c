@@ -255,9 +255,7 @@ uint64_t* list_nth(uint64_t* l, uint64_t n){
 }
 
 uint64_t* make_terms(uint64_t* term, uint64_t* other){
-    print((uint64_t*) "start make_terms\n");
     if (is_empty(other)){
-        print((uint64_t*) "out of make_terms\n");
         return term;
     }
     else {
@@ -265,11 +263,9 @@ uint64_t* make_terms(uint64_t* term, uint64_t* other){
         uint64_t operation = int_get(fst(terme_2));
         uint64_t* value = snd(terme_2);
         if (operation == SYM_PLUS){
-            print((uint64_t*) "out of make_terms\n");
             return triple(make_int(EADD), term, make_terms(value, next_elt(other)));
         }
         else if (operation == SYM_MINUS){
-            print((uint64_t*) "out of make_terms\n");
             return triple(make_int(ESUB), term, make_terms(value, next_elt(other)));
         }
         else{
@@ -279,7 +275,6 @@ uint64_t* make_terms(uint64_t* term, uint64_t* other){
 }
 
 uint64_t* make_factors(uint64_t* factor, uint64_t* other){
-    print((uint64_t*) "debug 2\n");
     if (is_empty(other)){
         return factor;
     }
@@ -289,14 +284,10 @@ uint64_t* make_factors(uint64_t* factor, uint64_t* other){
         uint64_t* value = snd(terme_2);
         // print((uint64_t*) "end of make_factors\n");
         if (operation == EMUL){
-            print((uint64_t*) "SYM_ASTERISK\n");
             return triple(make_int(EMUL), factor, make_factors(value, next_elt(other)));
         }
         else{
-            print((uint64_t*) "IMPOSSIBLE\n");
             return NULL;
         }
     }
-
-    print((uint64_t*) "end of make_factors\n");
 }

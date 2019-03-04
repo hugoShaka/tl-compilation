@@ -13,8 +13,20 @@ uint64_t* symtab;
 uint64_t current_stack_slot = 0;
 
 uint64_t find_var(uint64_t* s){
-
-    return 0;
+    uint64_t* liste_pos = symtab;
+    uint64_t max_stack = 0;
+    while (!is_empty(liste_pos)){
+        if (string_get(s) == string_get(fst(liste_pos))){
+            return snd(liste_pos);
+        }
+        //check if max_stack
+        if (snd(liste_pos) > max_stack){
+            max_stack = snd(liste_pos);
+        }
+        liste_pos = next_elt(liste_pos);
+    }
+    symtab = cons(paire(s, max_stack+8), symtab);
+    return max_stack+8;
 }
 
 /* Doit retourner une paire (l, r) où l est une liste d'instructions et r est le
