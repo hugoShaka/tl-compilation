@@ -57,7 +57,7 @@ test: $(TESTS) cstar
 test2: $(TESTS) cstar
 	@for i in $(TESTS); do \
 		echo "==========\n$$i"; \
-		./cstar -c $$i; \
+		./cstar -c $$i -dump-ast; \
 		rc=$$?;\
 		RED='\033[0;31m'; \
 		GREEN='\033[0;32m'; \

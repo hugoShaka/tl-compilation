@@ -2,10 +2,11 @@
 #include "parser.h"
 #include "lexer.h"
 #include "ast.h"
+#include "expr_dump.h"
+#include <stdio.h>
 
 void dump_ast(uint64_t* ast) {
   uint64_t* affectations = fst(ast);
-  uint64_t* expression = snd(ast);
 
 // on itère sur la liste d'affectations
   print((uint64_t*) "Liste des affectations : ");
@@ -38,9 +39,9 @@ void print_expr(uint64_t* expr){
       print_expr(thr(expr));
   }
   if (type == EINT){
-      printf("%d\n",int_get(snd(expr)));
+      printf("%d",int_get(snd(expr)));
   }
   if (type == EVAR){
-      printf("%s\n",string_get(snd(expr)));
+      printf("%s",string_get(snd(expr)));
   }
 }
