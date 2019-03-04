@@ -119,11 +119,38 @@ uint64_t* string_of_expr_tag(uint64_t et){
 }
 
 uint64_t* make_terms(uint64_t* term, uint64_t* other){
- return NULL;
+    if (other == nil){
+        return term;
+    }
+    else {
+        uint64_t* terme_2 = get_elt(other);
+        uint64_t* operation = fst(terme_2);
+        uint64_t* value = snd(terme_2);
+        if (operation == SYM_PLUS){
+            return triple(EADD, term, make_terms(value, next_elt(other)));
+        }
+        else if (operation == SYM_MINUS){
+            return triple(ESUB, term, make_terms(value, next_elt(other)));
+        }
+        else{
+            return 1;
+        }
+    }
 }
 
 uint64_t* make_factors(uint64_t* factor, uint64_t* other){
- return NULL;
+    if (other == nil){
+        return factor;
+    }
+    else {
+        uint64_t* terme_2 = get_elt(other);
+        uint64_t* operation = fst(terme_2);
+        uint64_t* value = snd(terme_2);
+        if (operation == SYM_ASTERISK){
+            return triple(EMUL, factor, make_terms(value, next_elt(other)));
+        }
+        else{
+            return 1;
+        }
+    }
 }
-
-
